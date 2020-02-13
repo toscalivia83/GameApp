@@ -16,7 +16,7 @@ public class Character {
             "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + COLUMN_IMG_URL + " TEXT,"
-                    + COLUMN_CHARACTERISTICS + " TEXT" // TODO: should be [text]
+                    + COLUMN_CHARACTERISTICS + " TEXT" // TODO: should be Array[text]
                     + ")";
 
     public Character() {

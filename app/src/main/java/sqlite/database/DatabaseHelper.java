@@ -19,22 +19,16 @@ import sqlite.database.model.Question;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    // Database Version
     private static final int DATABASE_VERSION = 1;
 
-    // Database Name
     private static final String DATABASE_NAME = "sample_db";
-
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-
-        // create character table
         db.execSQL(Character.CREATE_TABLE);
         db.execSQL(Question.CREATE_TABLE);
     }
@@ -50,7 +44,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public long insertCharacter(int id, String imgUrl, String characteristics) {
-        // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -59,18 +52,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Character.COLUMN_IMG_URL, imgUrl);
         values.put(Character.COLUMN_CHARACTERISTICS, characteristics);
 
-        // insert row
         long idCreated = db.insert(Character.TABLE_NAME, null, values);
 
-        // close db connection
         db.close();
 
-        // return newly inserted row id
         return idCreated;
     }
 
     public Character getCharacter(long id) {
-        // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(Character.TABLE_NAME,
@@ -81,13 +70,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        // prepare character object
         Character character = new Character(
                 cursor.getInt(cursor.getColumnIndex(Character.COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(Character.COLUMN_IMG_URL)),
                 cursor.getString(cursor.getColumnIndex(Character.COLUMN_CHARACTERISTICS)));
 
-        // close the db connection
         cursor.close();
 
         return character;
@@ -95,7 +82,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public long insertQuestion(int id, String sentence, String characteristics) {
-        // get writable database as we want to write data
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -104,18 +90,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(Question.COLUMN_SENTENCE, sentence);
         values.put(Question.COLUMN_CHARACTERISTICS, characteristics);
 
-        // insert row
         long idCreated = db.insert(Question.TABLE_NAME, null, values);
 
-        // close db connection
         db.close();
 
-        // return newly inserted row id
-        return id;
+        return idCreated;
     }
 
     public Question getQuestion(long id) {
-        // get readable database as we are not inserting anything
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(Question.TABLE_NAME,
@@ -126,13 +108,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        // prepare Question object
         Question question = new Question(
                 cursor.getInt(cursor.getColumnIndex(Question.COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(Question.COLUMN_SENTENCE)),
                 cursor.getString(cursor.getColumnIndex(Question.COLUMN_CHARACTERISTICS)));
 
-        // close the db connection
         cursor.close();
 
         return question;
@@ -141,14 +121,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Question> getAllQuestions() {
         List<Question> questions = new ArrayList<>();
 
-        // Select All Query
         String selectQuery = "SELECT  * FROM " + Question.TABLE_NAME + " ORDER BY " +
                 Question.COLUMN_ID + " DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 Question question = new Question();
@@ -160,23 +138,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        // close db connection
         db.close();
 
-        // return questions list
         return questions;
     }
+
     public List<Character> getAllCharacters() {
         List<Character> characters = new ArrayList<>();
 
-        // Select All Query
         String selectQuery = "SELECT  * FROM " + Character.TABLE_NAME + " ORDER BY " +
                 Character.COLUMN_ID + " DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
                 Character character = new Character();
@@ -188,7 +163,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        // close db connection
         db.close();
 
         return characters;
@@ -202,25 +176,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public void reinitialiseDbWithValues() {
-        long characterId = this.insertCharacter(001, "urltest","ugly");
-        long questionId = this.insertQuestion(1, "Is ugly?", "ugly");
-        long questionId2 = this.insertQuestion(2, "Is big?", "big");
-        long questionId3 = this.insertQuestion(3, "Is short?", "short");
+        long characterId1 = this.insertCharacter(1, "@drawable/horse1","black,canter");
+        long characterId2 = this.insertCharacter(2, "@drawable/horse2","brown,standing");
+        long characterId3 = this.insertCharacter(3, "@drawable/horse3","white,canter");
+        long characterId4 = this.insertCharacter(4, "@drawable/horse4","baie,standing");
+        long characterId5 = this.insertCharacter(5, "@drawable/horse5","grey,canter");
+        long characterId6 = this.insertCharacter(6, "@drawable/horse6","brown,headonly,");
+        long characterId7 = this.insertCharacter(7, "@drawable/horse7","black,white,headonly");
+        long characterId8 = this.insertCharacter(8, "@drawable/horse8","shadow,rearing");
+        long characterId9 = this.insertCharacter(9, "@drawable/horse9","grey,canter,lounge");
+        long characterId10 = this.insertCharacter(10, "@drawable/horse10","baie,headonly,worried");
+        long characterId11 = this.insertCharacter(11, "@drawable/horse11","baie,tired");
+        long characterId12 = this.insertCharacter(12, "@drawable/horse12","isabelle,headonly");
+        long characterId13 = this.insertCharacter(13, "@drawable/horse13","brown,standing");
+        long characterId14 = this.insertCharacter(14, "@drawable/horse14","grey,headonly,smart");
+        long characterId15 = this.insertCharacter(15, "@drawable/horse15","brown,white,small,sitted");
+//        long questionId = this.insertQuestion(1, "Is ugly?", "ugly");
+//        long questionId2 = this.insertQuestion(2, "Is big?", "big");
+//        long questionId3 = this.insertQuestion(3, "Is short?", "short");
     }
 
-//    public int getNotesCount() {
-//        String countQuery = "SELECT  * FROM " + Note.TABLE_NAME;
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.rawQuery(countQuery, null);
-//
-//        int count = cursor.getCount();
-//        cursor.close();
-//
-//
-//        // return count
-//        return count;
-//    }
-//
 //    public int updateNote(Note note) {
 //        SQLiteDatabase db = this.getWritableDatabase();
 //
@@ -231,11 +206,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        return db.update(Note.TABLE_NAME, values, Note.COLUMN_ID + " = ?",
 //                new String[]{String.valueOf(note.getId())});
 //    }
-//
-//    public void deleteNote(Note note) {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        db.delete(Note.TABLE_NAME, Note.COLUMN_ID + " = ?",
-//                new String[]{String.valueOf(note.getId())});
-//        db.close();
-//    }
+
+    public void deleteCharacter(int characterId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(Character.TABLE_NAME, Character.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(characterId)});
+        db.close();
+    }
 }

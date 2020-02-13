@@ -16,7 +16,7 @@ public class Question {
             "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + COLUMN_SENTENCE + " TEXT,"
-                    + COLUMN_CHARACTERISTICS + " TEXT" // TODO: should be [text]
+                    + COLUMN_CHARACTERISTICS + " TEXT" // TODO: should be Array[text]
                     + ")";
 
     public Question() {

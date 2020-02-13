@@ -9,22 +9,17 @@
 
     <LinearLayout
         android:id="@+id/layoutLinear"
-        android:layout_width="174dp"
-        android:layout_height="158dp"
+        android:layout_width="172dp"
+        android:layout_height="170dp"
         android:layout_marginStart="2dp"
         android:background="#FAF7F7"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.018"
+        app:layout_constraintHorizontal_bias="0.005"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/questionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/questionButtonText" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.983">
 
         <Button
             android:id="@+id/suggestButton"
@@ -33,6 +28,12 @@
             android:layout_marginStart="4dp"
             android:layout_marginBottom="26dp"
             android:text="@string/suggestButtonText" />
+
+        <Button
+            android:id="@+id/questionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/questionButtonText" />
 
         <TextView
             android:id="@+id/textView"
@@ -54,8 +55,33 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        >
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow"
+            android:layout_width="375dp"
+            android:layout_height="200dp"
+            app:flow_horizontalStyle="packed"
+            app:flow_wrapMode="aligned"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="124dp"
+        android:layout_height="93dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="43dp"
+        android:layout_marginBottom="101dp"
+        android:contentDescription="@string/currentPlayerCharacter"
+        app:layout_constraintBottom_toTopOf="@+id/layoutLinear"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/c86" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

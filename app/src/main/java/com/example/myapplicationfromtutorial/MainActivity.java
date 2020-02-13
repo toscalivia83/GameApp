@@ -2,6 +2,7 @@ package com.example.myapplicationfromtutorial;
 
 import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.helper.widget.Flow;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
@@ -40,13 +41,13 @@ public class MainActivity extends AppCompatActivity {
         db = new DatabaseHelper(this);
 
 //        List<Character> characters = db.getAllCharacters();
-        List<String> imageUrlCharacterList = Collections.nCopies(6, "@drawable/c86");//set temporary drawable image url in array
+        List<String> imageUrlCharacterList = Collections.nCopies(18, "@drawable/c86");//set temporary drawable image url in array
 
         createImageViewForEachCharacter(imageUrlCharacterList);
     }
 
     private void createImageViewForEachCharacter(List<String> imageUrlCharacterList) {
-        int imageIds[] = new int[6];
+        int imageIds[] = new int[imageUrlCharacterList.size()];
 
         ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
 
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         };
 
         addConstraintsToImageViews(constraintLayout, imageIds, imageUrlCharacterList.size());
+        Flow flow = (Flow)findViewById(R.id.flow);
+        flow.setReferencedIds(imageIds);
     }
 
     private ImageView createCharacterImageView(int characterDrawableImage) {
