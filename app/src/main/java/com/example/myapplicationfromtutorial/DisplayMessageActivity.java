@@ -24,9 +24,6 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
     public void letsGo(View view) {
         Intent intent = new Intent(this, MainActivity.class);
-        Button goButton= findViewById(R.id.go);
-//        String message = goButton.getText().toString();
-//        intent.putExtra(EXTRA_MESSAGE, message);
 
         ArrayList<String> character1Characteristics = new ArrayList<>();
         character1Characteristics.add("ugly");
