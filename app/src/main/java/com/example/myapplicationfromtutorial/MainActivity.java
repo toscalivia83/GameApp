@@ -1,34 +1,26 @@
 package com.example.myapplicationfromtutorial;
 
-import androidx.annotation.IdRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.helper.widget.Flow;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.myapplicationfromtutorial.service.Player;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import sqlite.database.DatabaseHelper;
-import sqlite.database.model.Character;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Player currentPlayer;
     private DatabaseHelper db;
 
     @Override
@@ -37,11 +29,13 @@ public class MainActivity extends AppCompatActivity {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
 
-        this.displayPlayerNameInTextView();
+        setCurrentPlayer(getPlayer1());
+
+        this.displayCurrentPlayerNameInTextView();
         db = new DatabaseHelper(this);
 
 //        List<Character> characters = db.getAllCharacters();
-        List<String> imageUrlCharacterList = Collections.nCopies(18, "@drawable/c86");//set temporary drawable image url in array
+        List<String> imageUrlCharacterList = Collections.nCopies(10, "@drawable/c86");//set temporary drawable image url in array
 
         createImageViewForEachCharacter(imageUrlCharacterList);
     }
@@ -53,21 +47,19 @@ public class MainActivity extends AppCompatActivity {
 
         for(int i = 0; i < imageUrlCharacterList.size(); i++) {
 //            ImageView imageView = createCharacterImageView(imageUrlCharacterList.get(i))
-            ImageView imageView = createCharacterImageView(R.drawable.c86);
+            ImageView imageView = createCharacterImageView(R.drawable.c86, i);
 
             imageIds[i] = imageView.getId();
             constraintLayout.addView(imageView);
         };
 
         addConstraintsToImageViews(constraintLayout, imageIds, imageUrlCharacterList.size());
-        Flow flow = (Flow)findViewById(R.id.flow);
-        flow.setReferencedIds(imageIds);
     }
 
-    private ImageView createCharacterImageView(int characterDrawableImage) {
+    private ImageView createCharacterImageView(int characterDrawableImage, int index) {
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(150, 150);// layout constraint to set for each ImageViea
         ImageView imageView = new ImageView(this);
-        imageView.setId(View.generateViewId());
+        imageView.setId(index);
         imageView.setImageDrawable(getResources().getDrawable(characterDrawableImage));
         imageView.setLayoutParams(layoutParams);
         imageView.setRight(50);
@@ -97,14 +89,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void displayPlayerNameInTextView() {
-        Player player = this.getPlayer();
+    private void displayCurrentPlayerNameInTextView() {
+        Player player = this.getCurrentPlayer();
         TextView tv = (TextView)findViewById(R.id.textView);
-        tv.setText("The current player name is " +player.getName());
+        tv.setText("The current player name is " + player.getName());
     }
 
-    private Player getPlayer() {
-        return (Player)getIntent().getSerializableExtra("Player");
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    private Player getPlayer1() {
+        return (Player)getIntent().getSerializableExtra("Player1");
+    }
+
+    private Player getPlayer2() {
+        return (Player)getIntent().getSerializableExtra("Player2");
     }
 
 }

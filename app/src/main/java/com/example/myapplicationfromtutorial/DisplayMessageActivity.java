@@ -27,10 +27,15 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
         ArrayList<String> character1Characteristics = new ArrayList<>();
         character1Characteristics.add("ugly");
+        ArrayList<String> character2Characteristics = new ArrayList<>();
+        character1Characteristics.add("tall");
         Character character1 = new Character(1, "url", character1Characteristics);
-        Player player = new Player("Marion", character1);
+        Character character2 = new Character(2, "url", character1Characteristics);
+        Player player1 = new Player("Marion", character1);
+        Player player2 = new Player("Robin", character1);
 
-        intent.putExtra("Player", player);
+        intent.putExtra("Player1", player1);
+        intent.putExtra("Player2", player2);
 
         startActivity(intent);
     }
