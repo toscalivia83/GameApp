@@ -5,14 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
-
-import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import sqlite.database.model.Character;
 import sqlite.database.model.Question;
@@ -143,7 +139,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return questions;
     }
 
-    public List<Character> getAllCharacters() {
+    public List<com.example.myapplicationfromtutorial.service.Character> getAllCharacters() {
         List<Character> characters = new ArrayList<>();
 
         String selectQuery = "SELECT  * FROM " + Character.TABLE_NAME + " ORDER BY " +
@@ -152,20 +148,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
+        ArrayList<com.example.myapplicationfromtutorial.service.Character> charactersOther = new ArrayList<com.example.myapplicationfromtutorial.service.Character>();
+
         if (cursor.moveToFirst()) {
             do {
-                Character character = new Character();
-                character.setId(cursor.getInt(cursor.getColumnIndex(Character.COLUMN_ID)));
-                character.setImg_url(cursor.getString(cursor.getColumnIndex(Character.COLUMN_IMG_URL)));
-                character.setCharacteristics(cursor.getString(cursor.getColumnIndex(Character.COLUMN_CHARACTERISTICS)));
-
-                characters.add(character);
+                charactersOther.add(
+                        new com.example.myapplicationfromtutorial.service.Character(
+                                cursor.getInt(cursor.getColumnIndex(Character.COLUMN_ID)),
+                                cursor.getString(cursor.getColumnIndex(Character.COLUMN_IMG_URL)),
+                                cursor.getString(cursor.getColumnIndex(Character.COLUMN_CHARACTERISTICS))
+                        )
+                );
             } while (cursor.moveToNext());
         }
 
         db.close();
 
-        return characters;
+        return charactersOther;
     }
 
 
@@ -174,6 +173,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 .map(Question::getSentence)
                 .collect(Collectors.toList());
     }
+
+    // TODO: this patch should be in a specific file. maybe called 'CharacterQueryImplementation'?
 
     public void reinitialiseDbWithValues() {
         long characterId1 = this.insertCharacter(1, "@drawable/horse1","black,canter");

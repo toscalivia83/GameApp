@@ -1,49 +1,57 @@
 package com.example.myapplicationfromtutorial.service;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Board {
-    private String currentPlayerName;
-    private String opponentPlayerName;
-    private List<Character> characters;
-    private List<Character> displayedCharacters; // or hiddenCharacters?
+/**
+ * Board class with details of what the user see
+ *  * @param  id   board id to differentiate them
+ *  * @param  currentPlayer
+ *  * @param  opponentPlayer
+ *  * @param  charactersOnBoard
+ */
+public class Board implements Serializable {
+    private Integer id;
+    private Player currentPlayer;
+    private Player opponentPlayer;// needed? maybe to keep track of it!
+    private List<CharacterOnBoard> charactersOnBoard;// should it be a type CharactersOnBoard with initialized charactersOnBoard states?
 
-    public Board(String currentPlayerName, String opponentPlayerName, List<Character> characters, List<Character> displayedCharacters) {
-        this.currentPlayerName = currentPlayerName;
-        this.opponentPlayerName = opponentPlayerName;
-        this.characters = characters;
-        this.displayedCharacters = displayedCharacters;
+    public Board(Integer id, Player currentPlayer, Player opponentPlayer, List<CharacterOnBoard> charactersOnBoard) {
+        this.id = id;
+        this.currentPlayer = currentPlayer;
+        this.opponentPlayer = opponentPlayer;
+        this.charactersOnBoard = charactersOnBoard;
     }
 
-    public String getCurrentPlayerName() {
-        return currentPlayerName;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCurrentPlayerName(String currentPlayerName) {
-        this.currentPlayerName = currentPlayerName;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getOpponentPlayerName() {
-        return opponentPlayerName;
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 
-    public void setOpponentPlayerName(String opponentPlayerName) {
-        this.opponentPlayerName = opponentPlayerName;
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
-    public List<Character> getCharacters() {
-        return characters;
+    public Player getOpponentPlayer() {
+        return opponentPlayer;
     }
 
-    public void setCharacters(List<Character> characters) {
-        this.characters = characters;
+    public void setOpponentPlayer(Player opponentPlayer) {
+        this.opponentPlayer = opponentPlayer;
     }
 
-    public List<Character> getDisplayedCharacters() {
-        return displayedCharacters;
+    public List<CharacterOnBoard> getCharactersOnBoard() {
+        return charactersOnBoard;
     }
 
-    public void setDisplayedCharacters(List<Character> displayedCharacters) {
-        this.displayedCharacters = displayedCharacters;
+    public void setCharactersOnBoard(List<CharacterOnBoard> charactersOnBoard) {
+        this.charactersOnBoard = charactersOnBoard;
     }
 }

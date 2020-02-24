@@ -7,14 +7,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.myapplicationfromtutorial.service.Board;
 import com.example.myapplicationfromtutorial.service.Character;
+import com.example.myapplicationfromtutorial.service.CharacterOnBoard;
 import com.example.myapplicationfromtutorial.service.Player;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import sqlite.database.DatabaseHelper;
 
 public class DisplayMessageActivity extends AppCompatActivity {
 
-    public static final String EXTRA_MESSAGE = "com.example.myapplicationfromtutorial.MESSAGE";
+    private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,12 +31,26 @@ public class DisplayMessageActivity extends AppCompatActivity {
     public void letsGo(View view) {
         Intent intent = new Intent(this, MainActivity.class);
 
-        ArrayList<String> character1Characteristics = new ArrayList<>();
-        character1Characteristics.add("ugly");
-        Character character1 = new Character(1, "url", character1Characteristics);
-        Player player = new Player("Marion", character1);
+        db = new DatabaseHelper(this);
 
-        intent.putExtra("Player", player);
+        List<Character> characters = db.getAllCharacters();
+        Player player1 = new Player("Marion", characters.get(1));
+        Player player2 = new Player("Robin", characters.get(2));
+        ArrayList<CharacterOnBoard> charactersOnBoard = new ArrayList<CharacterOnBoard>();
+        characters.forEach(character -> {
+            CharacterOnBoard characterOnBoard = new CharacterOnBoard(
+                    character.getImgUrl(),
+                    character.getCharacteristics(),
+                    false
+            );
+            charactersOnBoard.add(characterOnBoard);
+        });
+
+        Board player1Board = new Board(1, player1, player2, charactersOnBoard);
+        Board player2Board = new Board(2, player2, player1, charactersOnBoard);
+
+        intent.putExtra("Player1Board", player1Board);
+        intent.putExtra("Player2Board", player2Board);
 
         startActivity(intent);
     }

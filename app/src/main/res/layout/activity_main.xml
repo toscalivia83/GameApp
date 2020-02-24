@@ -63,11 +63,7 @@
             android:layout_width="375dp"
             android:layout_height="200dp"
             app:flow_horizontalStyle="packed"
-            app:flow_wrapMode="aligned"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:flow_wrapMode="aligned"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -83,5 +79,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/c86" />
+
+<!--    <Button-->
+<!--        android:id="@+id/switchButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="25dp"-->
+<!--        android:layout_marginTop="98dp"-->
+<!--        android:layout_marginEnd="255dp"-->
+<!--        android:layout_marginBottom="54dp"-->
+<!--        android:onClick="onSwitchPlayerClick"-->
+<!--        android:text="Switch player"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/imageView"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/button2"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:onClick="onSetOtherBoardClick"-->
+<!--        android:text="set other board" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
