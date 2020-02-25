@@ -37,7 +37,8 @@ public class BoardService extends Service {
     private Intent intent;
     private Resources resources;
 
-    private Player currentPlayer;
+    private Board currentBoard;
+    private Board opponentBoard;
     private Player player1;
     private Player player2;
     private ArrayList<CharacterOnBoard> characters;
@@ -53,7 +54,8 @@ public class BoardService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        setCurrentPlayer(getPlayer1FromIntent(intent));
+        setCurrentBoard(createPlayerBoard(getPlayer1FromIntent(intent), getPlayer2FromIntent(intent)));
+        setOpponentBoard(createPlayerBoard(getPlayer2FromIntent(intent), getPlayer1FromIntent(intent)));
         setPlayer1(getPlayer1FromIntent(intent));
         setPlayer2(getPlayer2FromIntent(intent));
         return binder;
@@ -61,7 +63,6 @@ public class BoardService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-//        initializeBoard(intent);
         return Service.START_STICKY; // what does that mean?
     }
 
@@ -70,96 +71,33 @@ public class BoardService extends Service {
         super.onDestroy();
     }
 
-//    public Board initializeBoard(
-//            Intent intent,
-//            ConstraintLayout constraintLayout,
-//            TextView textView,
-//            Resources resources) {
-    public void initializeBoard(
-            Intent intent) {
-        this.resources = resources;
+    public Board createPlayerBoard(Player currentPlayer, Player opponentPlayer) {
+        return new Board(
+                currentPlayer,
+                opponentPlayer,
+                createCharactersOnBoard()
+        );
+    }
 
+    private List<CharacterOnBoard> createCharactersOnBoard() {
         db = new DatabaseHelper(this);
-
         List<Character> characters = db.getAllCharacters();
-
-//        createImageViewForEachCharacter(
-//                characters.stream()
-//                        .map(c -> c.getImgUrl())
-//                        .collect(Collectors.toList()),
-//                constraintLayout
-//        );
-//        return new Board(getPlayer1(intent), getPlayer2(intent), characters, characters);
+        return characters.stream().map(c -> new CharacterOnBoard(
+                c.getId(),
+                c.getImgUrl(),
+                c.getCharacteristics()
+        )).collect(Collectors.toList());
     }
 
-    public Player switchPlayer() {
-        if (getCurrentPlayer().getName() == getPlayer1().getName()) {
-            setCurrentPlayer(getPlayer2());
-        } else {
-            setCurrentPlayer(getPlayer1());
-        }
-        return currentPlayer;
+    public Board switchBoard() {
+        Board temp = getCurrentBoard();
+        setCurrentBoard(getOpponentBoard());
+        setOpponentBoard(temp);
+        return getCurrentBoard();
     }
-
-//    private void createImageViewForEachCharacter(List<String> imageUrlCharacterList, ConstraintLayout constraintLayout) {
-//        int imageIds[] = new int[imageUrlCharacterList.size()];
-//
-//        for(int i = 0; i < imageUrlCharacterList.size(); i++) {
-////            ImageView imageView = createCharacterImageView(imageUrlCharacterList.get(i))
-//            int drawableId = resources.getIdentifier(
-//                    imageUrlCharacterList.get(i),
-//                    "drawable",
-//                    "com.example.myapplicationfromtutorial"
-//            );
-//
-//            ImageView imageView = createCharacterImageView(
-//                    drawableId,
-//                    i,
-//                    resources
-//            );
-//
-//            imageIds[i] = imageView.getId();
-//            constraintLayout.addView(imageView);
-//        };
-//
-//        addConstraintsToImageViews(constraintLayout, imageIds, imageUrlCharacterList.size());
-//    }
-//
-//    private ImageView createCharacterImageView(int characterDrawableImage, int index, Resources resources) {
-//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(150, 150);// layout constraint to set for each ImageViea
-//        ImageView imageView = new ImageView(this);
-//        imageView.setId(index);
-//        imageView.setImageDrawable(resources.getDrawable(characterDrawableImage));
-//        imageView.setLayoutParams(layoutParams);
-//        imageView.setRight(50);
-//        imageView.setLeft(60);
-//
-//        imageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                boolean isCharacterImageShown = imageView.getDrawable().getConstantState().equals
-//                        (imageView.getResources().getDrawable(characterDrawableImage).getConstantState());
-//                imageView.setImageDrawable(resources.getDrawable(
-//                        isCharacterImageShown
-//                                ? R.drawable.boursin // when card is hidden always show the same
-//                                : characterDrawableImage
-//                ));
-//            }
-//        });
-//        return imageView;
-//    }
-//
-//    private void addConstraintsToImageViews(ConstraintLayout constraintLayout, int[] imageIds, int imageUrlCharacterListSize) {
-//        for(int i = 0; i < imageUrlCharacterListSize - 1; i++) {
-//            ConstraintSet constraints = new ConstraintSet();
-//            constraints.clone(constraintLayout);
-//            constraints.connect(imageIds[i], ConstraintSet.START, imageIds[i+1], ConstraintSet.END, 15);
-//            constraints.applyTo(constraintLayout);
-//        }
-//    }
 
     public void displayCurrentPlayerNameInTextView(TextView textView) {
-        textView.setText(getCurrentPlayer().getName());
+        textView.setText(getCurrentBoard().getCurrentPlayer().getName());
     }
 
     private Player getPlayer1FromIntent(Intent intent) {
@@ -170,12 +108,20 @@ public class BoardService extends Service {
         return (Player)intent.getSerializableExtra("Player2");
     }
 
-    public Player getCurrentPlayer() {
-        return currentPlayer;
+    public Board getCurrentBoard() {
+        return currentBoard;
     }
 
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
+    public void setCurrentBoard(Board currentBoard) {
+        this.currentBoard = currentBoard;
+    }
+
+    public Board getOpponentBoard() {
+        return opponentBoard;
+    }
+
+    public void setOpponentBoard(Board opponentBoard) {
+        this.opponentBoard = opponentBoard;
     }
 
     public Player getPlayer1() {

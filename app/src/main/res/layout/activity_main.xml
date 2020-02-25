@@ -38,32 +38,30 @@
             android:id="@+id/textView"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:textColor="#2196F3" />
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="106dp"
             android:layout_height="36dp"
-            android:onClick="switchPlayer"
+            android:onClick="switchBoard"
             android:text="SWITCH" />
 
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="wrap_content"
-        android:maxWidth="540dp"
-        android:layout_height="409dp"
+        android:layout_width="522dp"
+        android:layout_height="224dp"
         android:layout_marginStart="300dp"
-        android:background="#F44336"
-        android:backgroundTint="#F44336"
+        android:maxWidth="540dp"
         app:layout_constraintBottom_toTopOf="@+id/layoutLinear"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        >
+        app:layout_constraintVertical_bias="0.0">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -79,5 +77,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/c86" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="526dp"
+        android:layout_height="178dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/layoutLinear"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="1.0">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

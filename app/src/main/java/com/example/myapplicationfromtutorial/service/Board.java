@@ -5,14 +5,12 @@ import java.util.List;
 public class Board {
     private Player currentPlayer;
     private Player opponentPlayer;
-    private List<Character> characters;
-    private List<Character> displayedCharacters; // or hiddenCharacters?
+    private List<CharacterOnBoard> charactersOnBoard;
 
-    public Board(Player currentPlayer, Player opponentPlayer, List<Character> characters, List<Character> displayedCharacters) {
+    public Board(Player currentPlayer, Player opponentPlayer, List<CharacterOnBoard> charactersOnBoard) {
         this.currentPlayer = currentPlayer;
         this.opponentPlayer = opponentPlayer;
-        this.characters = characters;
-        this.displayedCharacters = displayedCharacters;
+        this.charactersOnBoard = charactersOnBoard;
     }
 
     public Player getCurrentPlayer() {
@@ -31,19 +29,12 @@ public class Board {
         this.opponentPlayer = opponentPlayer;
     }
 
-    public List<Character> getCharacters() {
-        return characters;
+    public List<CharacterOnBoard> getCharactersOnBoard() {
+        return charactersOnBoard;
     }
 
-    public void setCharacters(List<Character> characters) {
-        this.characters = characters;
+    public void setCharactersOnBoard(List<CharacterOnBoard> charactersOnBoard) {
+        this.charactersOnBoard = charactersOnBoard;
     }
 
-    public List<Character> getDisplayedCharacters() {
-        return displayedCharacters;
-    }
-
-    public void setDisplayedCharacters(List<Character> displayedCharacters) {
-        this.displayedCharacters = displayedCharacters;
-    }
 }

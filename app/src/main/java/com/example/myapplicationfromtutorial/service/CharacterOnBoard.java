@@ -6,7 +6,7 @@ public class CharacterOnBoard {
     String characteristics;
     boolean isHidden;
 
-    CharacterOnBoard(int id, String imgUrl, String characteristics) {
+    public CharacterOnBoard(int id, String imgUrl, String characteristics) {
         this.id = id;
         this.imgUrl = imgUrl;
         this.characteristics = characteristics;
