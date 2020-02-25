@@ -1,6 +1,6 @@
 package sqlite.database.model;
 
-public class Character {
+public class CharacterTable {
     public static final String TABLE_NAME = "character";
 
     public static final String COLUMN_ID = "id";
@@ -19,10 +19,10 @@ public class Character {
                     + COLUMN_CHARACTERISTICS + " TEXT" // TODO: should be Array[text]
                     + ")";
 
-    public Character() {
+    public CharacterTable() {
     }
 
-    public Character(int id, String img_url, String characteristics) {
+    public CharacterTable(int id, String img_url, String characteristics) {
         this.id = id;
         this.img_url = img_url;
         this.characteristics = characteristics;

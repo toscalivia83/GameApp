@@ -9,12 +9,14 @@ import android.os.Build;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.myapplicationfromtutorial.service.Character;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import sqlite.database.model.Character;
+import sqlite.database.model.CharacterTable;
 import sqlite.database.model.Question;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -29,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(Character.CREATE_TABLE);
+        db.execSQL(CharacterTable.CREATE_TABLE);
         db.execSQL(Question.CREATE_TABLE);
     }
 
@@ -37,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
-        db.execSQL("DROP TABLE IF EXISTS " + Character.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + CharacterTable.TABLE_NAME);
 
         // Create tables again
         onCreate(db);
@@ -48,11 +50,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put(Character.COLUMN_ID, id);
-        values.put(Character.COLUMN_IMG_URL, imgUrl);
-        values.put(Character.COLUMN_CHARACTERISTICS, characteristics);
+        values.put(CharacterTable.COLUMN_ID, id);
+        values.put(CharacterTable.COLUMN_IMG_URL, imgUrl);
+        values.put(CharacterTable.COLUMN_CHARACTERISTICS, characteristics);
 
-        long idCreated = db.insert(Character.TABLE_NAME, null, values);
+        long idCreated = db.insert(CharacterTable.TABLE_NAME, null, values);
 
         db.close();
 
@@ -62,18 +64,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Character getCharacter(long id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(Character.TABLE_NAME,
-                new String[]{Character.COLUMN_ID, Character.COLUMN_IMG_URL, Character.COLUMN_CHARACTERISTICS},
-                Character.COLUMN_ID + "=?",
+        Cursor cursor = db.query(CharacterTable.TABLE_NAME,
+                new String[]{CharacterTable.COLUMN_ID, CharacterTable.COLUMN_IMG_URL, CharacterTable.COLUMN_CHARACTERISTICS},
+                CharacterTable.COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
         if (cursor != null)
             cursor.moveToFirst();
 
         Character character = new Character(
-                cursor.getInt(cursor.getColumnIndex(Character.COLUMN_ID)),
-                cursor.getString(cursor.getColumnIndex(Character.COLUMN_IMG_URL)),
-                cursor.getString(cursor.getColumnIndex(Character.COLUMN_CHARACTERISTICS)));
+                cursor.getInt(cursor.getColumnIndex(CharacterTable.COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndex(CharacterTable.COLUMN_IMG_URL)),
+                cursor.getString(cursor.getColumnIndex(CharacterTable.COLUMN_CHARACTERISTICS)));
 
         cursor.close();
 
@@ -146,18 +148,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<Character> getAllCharacters() {
         List<Character> characters = new ArrayList<>();
 
-        String selectQuery = "SELECT  * FROM " + Character.TABLE_NAME + " ORDER BY " +
-                Character.COLUMN_ID + " DESC";
+        String selectQuery = "SELECT  * FROM " + CharacterTable.TABLE_NAME + " ORDER BY " +
+                CharacterTable.COLUMN_ID + " DESC";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
 
         if (cursor.moveToFirst()) {
             do {
-                Character character = new Character();
-                character.setId(cursor.getInt(cursor.getColumnIndex(Character.COLUMN_ID)));
-                character.setImg_url(cursor.getString(cursor.getColumnIndex(Character.COLUMN_IMG_URL)));
-                character.setCharacteristics(cursor.getString(cursor.getColumnIndex(Character.COLUMN_CHARACTERISTICS)));
+                Character character = new Character(
+                    cursor.getInt(cursor.getColumnIndex(CharacterTable.COLUMN_ID)),
+                    cursor.getString(cursor.getColumnIndex(CharacterTable.COLUMN_IMG_URL)),
+                    cursor.getString(cursor.getColumnIndex(CharacterTable.COLUMN_CHARACTERISTICS))
+                );
 
                 characters.add(character);
             } while (cursor.moveToNext());
@@ -209,7 +212,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void deleteCharacter(int characterId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(Character.TABLE_NAME, Character.COLUMN_ID + " = ?",
+        db.delete(CharacterTable.TABLE_NAME, CharacterTable.COLUMN_ID + " = ?",
                 new String[]{String.valueOf(characterId)});
         db.close();
     }

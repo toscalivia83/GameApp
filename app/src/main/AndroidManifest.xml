@@ -17,6 +17,7 @@
         </activity>
         <activity android:name=".DisplayMessageActivity" />
         <activity android:name=".MainActivity" />
+        <service android:name="com.example.myapplicationfromtutorial.BoardService" />
     </application>
 
 </manifest>

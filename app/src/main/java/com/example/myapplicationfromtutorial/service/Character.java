@@ -6,15 +6,15 @@ import java.util.ArrayList;
 public class Character implements Serializable {
     private Integer id;
     private String imgUrl;
-    private ArrayList<String> characteristics;
+    private String characteristics;
 
-    public Character(String imgUrl, ArrayList<String> characteristics) {
+    public Character(String imgUrl, String characteristics) {
         this.imgUrl = imgUrl;
         this.characteristics = characteristics;
     }
 
 
-    public Character(int id, String imgUrl, ArrayList<String> characteristics) {
+    public Character(int id, String imgUrl, String characteristics) {
         this.id = id;
         this.imgUrl = imgUrl;
         this.characteristics = characteristics;
@@ -36,11 +36,11 @@ public class Character implements Serializable {
         this.imgUrl = imgUrl;
     }
 
-    public ArrayList<String> getCharacteristics() {
+    public String getCharacteristics() {
         return characteristics;
     }
 
-    public void setCharacteristics(ArrayList<String> characteristics) {
+    public void setCharacteristics(String characteristics) {
         this.characteristics = characteristics;
     }
 }
