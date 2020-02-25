@@ -92,6 +92,15 @@ public class BoardService extends Service {
 //        return new Board(getPlayer1(intent), getPlayer2(intent), characters, characters);
     }
 
+    public Player switchPlayer() {
+        if (getCurrentPlayer().getName() == getPlayer1().getName()) {
+            setCurrentPlayer(getPlayer2());
+        } else {
+            setCurrentPlayer(getPlayer1());
+        }
+        return currentPlayer;
+    }
+
 //    private void createImageViewForEachCharacter(List<String> imageUrlCharacterList, ConstraintLayout constraintLayout) {
 //        int imageIds[] = new int[imageUrlCharacterList.size()];
 //
@@ -150,8 +159,7 @@ public class BoardService extends Service {
 //    }
 
     public void displayCurrentPlayerNameInTextView(TextView textView) {
-        Player player = getCurrentPlayer();
-        textView.setText("The current player name is " + player.getName());
+        textView.setText(getCurrentPlayer().getName());
     }
 
     private Player getPlayer1FromIntent(Intent intent) {

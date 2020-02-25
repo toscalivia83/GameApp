@@ -9,8 +9,11 @@ import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.myapplicationfromtutorial.service.Player;
 
 public class MainActivity extends AppCompatActivity {
     BoardService boardService;
@@ -32,8 +35,6 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, "Service Binded", Toast.LENGTH_LONG).show();
     }
 
-
-    /** Defines callbacks for service binding, passed to bindService() */
     private ServiceConnection connection = new ServiceConnection() {
 
         @Override
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                                        IBinder service) {
             BoardService.BoardServiceBinder binder = (BoardService.BoardServiceBinder) service;
             boardService = binder.getService();
-            displayCurrentPlayerNameInTextView();
+            displayCurrentPlayerNameInTextView(boardService.getCurrentPlayer().getName());
             mBound = true;
         }
 
@@ -58,9 +59,13 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, "Service Un-Binded", Toast.LENGTH_LONG).show();
     };
 
-    private void displayCurrentPlayerNameInTextView() {
+    private void displayCurrentPlayerNameInTextView(String name) {
         TextView tv = findViewById(R.id.textView);
-        boardService.displayCurrentPlayerNameInTextView(tv);
+        tv.setText(name);
     }
 
+    public void switchPlayer(View view) {
+        boardService.switchPlayer();
+        displayCurrentPlayerNameInTextView(boardService.getCurrentPlayer().getName());
+    }
 }
