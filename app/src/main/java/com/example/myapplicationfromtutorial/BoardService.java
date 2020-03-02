@@ -1,28 +1,17 @@
 package com.example.myapplicationfromtutorial;
 
-import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Binder;
 import android.os.IBinder;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.example.myapplicationfromtutorial.service.Board;
 import com.example.myapplicationfromtutorial.service.Character;
 import com.example.myapplicationfromtutorial.service.CharacterOnBoard;
 import com.example.myapplicationfromtutorial.service.Player;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import sqlite.database.DatabaseHelper;
@@ -34,14 +23,10 @@ public class BoardService extends Service {
 
     private DatabaseHelper db;
 
-    private Intent intent;
-    private Resources resources;
-
     private Board currentBoard;
     private Board opponentBoard;
     private Player player1;
     private Player player2;
-    private ArrayList<CharacterOnBoard> characters;
 
     // Binder given to clients
     private final IBinder binder = new BoardServiceBinder();
@@ -63,7 +48,7 @@ public class BoardService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        return Service.START_STICKY; // what does that mean?
+        return Service.START_STICKY;
     }
 
     @Override

@@ -105,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
         int imageIds[] = new int[imageUrlCharacterList.size()];
 
         for(int i = 0; i < imageUrlCharacterList.size(); i++) {
-//            ImageView imageView = createCharacterImageView(imageUrlCharacterList.get(i))
             int drawableId = getResources().getIdentifier(
                     imageUrlCharacterList.get(i),
                     "drawable",
