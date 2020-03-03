@@ -1,12 +1,12 @@
-package com.example.myapplicationfromtutorial;
+package com.example.myapplicationfromtutorial.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+
+import com.example.myapplicationfromtutorial.R;
 
 import sqlite.database.DatabaseHelper;
 

@@ -1,4 +1,4 @@
-package com.example.myapplicationfromtutorial.service;
+package com.example.myapplicationfromtutorial.model;
 
 public class CharacterOnBoard {
     int id;

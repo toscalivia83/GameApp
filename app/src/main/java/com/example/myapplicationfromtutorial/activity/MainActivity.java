@@ -1,4 +1,4 @@
-package com.example.myapplicationfromtutorial;
+package com.example.myapplicationfromtutorial.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -18,7 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapplicationfromtutorial.service.Board;
+import com.example.myapplicationfromtutorial.service.BoardService;
+import com.example.myapplicationfromtutorial.R;
+import com.example.myapplicationfromtutorial.model.Board;
 
 import java.util.List;
 import java.util.stream.Collectors;

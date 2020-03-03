@@ -8,17 +8,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".StartGame">
+        <activity android:name=".activity.StartGame">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DisplayMessageActivity" />
-        <activity android:name=".MainActivity" />
-        <service android:name="com.example.myapplicationfromtutorial.BoardService" />
-        <service android:name="com.example.myapplicationfromtutorial.PlayerService" />
+        <activity android:name=".activity.DisplayMessageActivity" />
+        <activity android:name=".activity.MainActivity" />
+        <service android:name="com.example.myapplicationfromtutorial.service.BoardService" />
+        <service android:name="com.example.myapplicationfromtutorial.service.PlayerService" />
     </application>
 
 </manifest>

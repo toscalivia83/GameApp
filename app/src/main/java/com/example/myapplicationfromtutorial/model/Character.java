@@ -1,4 +1,4 @@
-package com.example.myapplicationfromtutorial.service;
+package com.example.myapplicationfromtutorial.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;

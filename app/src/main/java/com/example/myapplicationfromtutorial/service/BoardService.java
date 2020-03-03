@@ -1,4 +1,4 @@
-package com.example.myapplicationfromtutorial;
+package com.example.myapplicationfromtutorial.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -6,10 +6,10 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.widget.TextView;
 
-import com.example.myapplicationfromtutorial.service.Board;
-import com.example.myapplicationfromtutorial.service.Character;
-import com.example.myapplicationfromtutorial.service.CharacterOnBoard;
-import com.example.myapplicationfromtutorial.service.Player;
+import com.example.myapplicationfromtutorial.model.Board;
+import com.example.myapplicationfromtutorial.model.Character;
+import com.example.myapplicationfromtutorial.model.CharacterOnBoard;
+import com.example.myapplicationfromtutorial.model.Player;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,7 +32,7 @@ public class BoardService extends Service {
     private final IBinder binder = new BoardServiceBinder();
 
     public class BoardServiceBinder extends Binder {
-        BoardService getService() {
+        public BoardService getService() {
             return BoardService.this;
         }
     }

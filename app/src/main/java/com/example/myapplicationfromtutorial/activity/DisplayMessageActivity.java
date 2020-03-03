@@ -1,27 +1,20 @@
-package com.example.myapplicationfromtutorial;
+package com.example.myapplicationfromtutorial.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.myapplicationfromtutorial.service.Character;
-import com.example.myapplicationfromtutorial.service.Player;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import com.example.myapplicationfromtutorial.service.PlayerService;
+import com.example.myapplicationfromtutorial.R;
+import com.example.myapplicationfromtutorial.model.Player;
 
 public class DisplayMessageActivity extends AppCompatActivity {
     PlayerService playerService;
