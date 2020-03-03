@@ -32,7 +32,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
     }
 
     public void letsGo(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, BoardActivity.class);
 
         intent.putExtra("Player1", player1);
         intent.putExtra("Player2", player2);
