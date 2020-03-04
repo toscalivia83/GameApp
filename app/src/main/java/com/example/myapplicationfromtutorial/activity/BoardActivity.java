@@ -22,6 +22,7 @@ import com.example.myapplicationfromtutorial.service.BoardService;
 import com.example.myapplicationfromtutorial.R;
 import com.example.myapplicationfromtutorial.model.Board;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,10 +61,10 @@ public class BoardActivity extends AppCompatActivity {
             createImageViewForEachCharacter(imageUrlCharacterList, R.id.constraintLayout);
             ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
             constraintLayout.setBackgroundColor(Color.parseColor("#FFFF00"));
-            List<String> opponentBoardImageUrlCharacterList = boardService.getOpponentBoard().getCharactersOnBoard().stream().map(c -> c.getImgUrl()).collect(Collectors.toList());
-            createImageViewForEachCharacter(opponentBoardImageUrlCharacterList, R.id.constraintLayout2);
-            ConstraintLayout constraintLayout2 = findViewById(R.id.constraintLayout2);
-            constraintLayout2.setBackgroundColor(Color.parseColor("#808000"));
+//            List<String> opponentBoardImageUrlCharacterList = boardService.getOpponentBoard().getCharactersOnBoard().stream().map(c -> c.getImgUrl()).collect(Collectors.toList());
+//            createImageViewForEachCharacter(opponentBoardImageUrlCharacterList, R.id.constraintLayout2);
+//            ConstraintLayout constraintLayout2 = findViewById(R.id.constraintLayout2);
+//            constraintLayout2.setBackgroundColor(Color.parseColor("#808000"));
             mBound = true;
         }
 
@@ -80,25 +81,25 @@ public class BoardActivity extends AppCompatActivity {
         Toast.makeText(BoardActivity.this, "Service Un-Binded", Toast.LENGTH_LONG).show();
     };
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        System.out.println("Hey!!");
+        super.onActivityResult(requestCode, resultCode, intent);
+
+    }
+
     private void displayCurrentPlayerNameInTextView(String name) {
         TextView tv = findViewById(R.id.textView);
         tv.setText(name);
     }
 
     public void switchBoard(View view) {
-        boardService.switchBoard();
-        displayCurrentPlayerNameInTextView(boardService.getCurrentBoard().getCurrentPlayer().getName());
-        if (isCurrentBoardPlayer1()) {
-            ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-            constraintLayout.setBackgroundColor(Color.parseColor("#FFFF00"));
-            ConstraintLayout constraintLayout2 = findViewById(R.id.constraintLayout2);
-            constraintLayout2.setBackgroundColor(Color.parseColor("#808000"));
-        } else {
-            ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-            constraintLayout.setBackgroundColor(Color.parseColor("#808000"));
-            ConstraintLayout constraintLayout2 = findViewById(R.id.constraintLayout2);
-            constraintLayout2.setBackgroundColor(Color.parseColor("#FFFF00"));
-        }
+        Intent intent = new Intent(BoardActivity.this, TransitionActivity.class);
+
+        intent.putExtra("Player1", boardService.getPlayer1());
+        intent.putExtra("Player2", boardService.getPlayer2());
+
+        startActivity(intent);
     }
 
     private void createImageViewForEachCharacter(List<String> imageUrlCharacterList, int constraintLayoutId) {

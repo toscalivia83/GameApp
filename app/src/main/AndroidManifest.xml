@@ -8,6 +8,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".activity.TransitionActivity"></activity>
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,8 +18,9 @@
         </activity>
         <activity android:name=".activity.DisplayMessageActivity" />
         <activity android:name=".activity.BoardActivity" />
-        <service android:name="com.example.myapplicationfromtutorial.service.BoardService" />
-        <service android:name="com.example.myapplicationfromtutorial.service.PlayerService" />
+
+        <service android:name=".service.BoardService" />
+        <service android:name=".service.PlayerService" />
     </application>
 
 </manifest>
