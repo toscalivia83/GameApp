@@ -3,35 +3,33 @@ package com.example.myapplicationfromtutorial.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.myapplicationfromtutorial.ExampleFragment;
+import com.example.myapplicationfromtutorial.OtherThingFragment;
 import com.example.myapplicationfromtutorial.service.BoardService;
 import com.example.myapplicationfromtutorial.R;
 import com.example.myapplicationfromtutorial.model.Board;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BoardActivity extends AppCompatActivity {
     BoardService boardService;
-    boolean mBound = false;
 
     Board player1Board;
     Board player2Board;
+
+    OtherThingFragment otherThingFragment;
+    ExampleFragment exampleFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,41 +43,21 @@ public class BoardActivity extends AppCompatActivity {
         intent.putExtra("Player1", previousIntent.getSerializableExtra("Player1"));
         intent.putExtra("Player2", previousIntent.getSerializableExtra("Player2"));
 
-        bindService(intent, connection, Context.BIND_AUTO_CREATE);
-        Toast.makeText(BoardActivity.this, "Service Binded", Toast.LENGTH_LONG).show();
+        if (findViewById(R.id.fragment_container) != null) {
+            if (savedInstanceState != null) {
+                return;
+            }
+
+            exampleFragment = new ExampleFragment();
+
+            //firstFragment.setArguments(getIntent().getExtras());
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.fragment_container, exampleFragment)
+                    .commit();
+        }
     }
-
-    private ServiceConnection connection = new ServiceConnection() {
-
-        @Override
-        public void onServiceConnected(ComponentName className,
-                                       IBinder service) {
-            BoardService.BoardServiceBinder binder = (BoardService.BoardServiceBinder) service;
-            boardService = binder.getService();
-            displayCurrentPlayerNameInTextView(boardService.getCurrentBoard().getCurrentPlayer().getName());
-            List<String> imageUrlCharacterList = boardService.getCurrentBoard().getCharactersOnBoard().stream().map(c -> c.getImgUrl()).collect(Collectors.toList());
-            createImageViewForEachCharacter(imageUrlCharacterList, R.id.constraintLayout);
-            ConstraintLayout constraintLayout = findViewById(R.id.constraintLayout);
-            constraintLayout.setBackgroundColor(Color.parseColor("#FFFF00"));
-//            List<String> opponentBoardImageUrlCharacterList = boardService.getOpponentBoard().getCharactersOnBoard().stream().map(c -> c.getImgUrl()).collect(Collectors.toList());
-//            createImageViewForEachCharacter(opponentBoardImageUrlCharacterList, R.id.constraintLayout2);
-//            ConstraintLayout constraintLayout2 = findViewById(R.id.constraintLayout2);
-//            constraintLayout2.setBackgroundColor(Color.parseColor("#808000"));
-            mBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName arg0) {
-            mBound = false;
-        }
-    };
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbindService(connection);
-        Toast.makeText(BoardActivity.this, "Service Un-Binded", Toast.LENGTH_LONG).show();
-    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -94,12 +72,23 @@ public class BoardActivity extends AppCompatActivity {
     }
 
     public void switchBoard(View view) {
-        Intent intent = new Intent(BoardActivity.this, TransitionActivity.class);
+        Fragment exampleFragmentTest = getSupportFragmentManager()
+                .getFragments()
+                .get(0);
 
-        intent.putExtra("Player1", boardService.getPlayer1());
-        intent.putExtra("Player2", boardService.getPlayer2());
-
-        startActivity(intent);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (exampleFragmentTest instanceof ExampleFragment){
+            exampleFragment = (ExampleFragment) exampleFragmentTest;
+            if (otherThingFragment == null) {
+                otherThingFragment = new OtherThingFragment();
+            }
+            transaction.replace(R.id.fragment_container, otherThingFragment);
+//            transaction.addToBackStack(null);
+        } else {
+            otherThingFragment = (OtherThingFragment) exampleFragmentTest;
+            transaction.replace(R.id.fragment_container, exampleFragment);
+        }
+        transaction.commit();
     }
 
     private void createImageViewForEachCharacter(List<String> imageUrlCharacterList, int constraintLayoutId) {
