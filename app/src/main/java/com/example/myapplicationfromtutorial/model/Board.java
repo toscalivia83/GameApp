@@ -1,13 +1,14 @@
 package com.example.myapplicationfromtutorial.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
     private Player currentPlayer;
     private Player opponentPlayer;
-    private List<CharacterOnBoard> charactersOnBoard;
+    private ArrayList<CharacterOnBoard> charactersOnBoard;
 
-    public Board(Player currentPlayer, Player opponentPlayer, List<CharacterOnBoard> charactersOnBoard) {
+    public Board(Player currentPlayer, Player opponentPlayer, ArrayList<CharacterOnBoard> charactersOnBoard) {
         this.currentPlayer = currentPlayer;
         this.opponentPlayer = opponentPlayer;
         this.charactersOnBoard = charactersOnBoard;
@@ -29,11 +30,11 @@ public class Board {
         this.opponentPlayer = opponentPlayer;
     }
 
-    public List<CharacterOnBoard> getCharactersOnBoard() {
+    public ArrayList<CharacterOnBoard> getCharactersOnBoard() {
         return charactersOnBoard;
     }
 
-    public void setCharactersOnBoard(List<CharacterOnBoard> charactersOnBoard) {
+    public void setCharactersOnBoard(ArrayList<CharacterOnBoard> charactersOnBoard) {
         this.charactersOnBoard = charactersOnBoard;
     }
 

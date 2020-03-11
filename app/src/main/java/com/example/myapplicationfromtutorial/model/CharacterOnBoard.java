@@ -1,6 +1,9 @@
 package com.example.myapplicationfromtutorial.model;
 
-public class CharacterOnBoard {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class CharacterOnBoard implements Parcelable {
     int id;
     String imgUrl;
     String characteristics;
@@ -35,5 +38,18 @@ public class CharacterOnBoard {
 
     public void setHidden(boolean hidden) {
         isHidden = hidden;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.imgUrl);
+        dest.writeString(this.characteristics);
+//        dest.writeBoolean(this.isHidden);
     }
 }

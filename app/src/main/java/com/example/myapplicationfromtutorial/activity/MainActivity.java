@@ -8,11 +8,7 @@ import android.view.View;
 
 import com.example.myapplicationfromtutorial.R;
 
-import sqlite.database.DatabaseHelper;
-
 public class MainActivity extends AppCompatActivity {
-
-    private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
