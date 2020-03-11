@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
-import com.example.myapplicationfromtutorial.ExampleFragment;
+import com.example.myapplicationfromtutorial.CharactersBoardFragment;
 import com.example.myapplicationfromtutorial.OtherThingFragment;
 import com.example.myapplicationfromtutorial.model.Character;
 import com.example.myapplicationfromtutorial.model.CharacterOnBoard;
@@ -22,7 +22,7 @@ public class BoardActivity extends AppCompatActivity {
     private DatabaseHelper db;
 
     OtherThingFragment otherThingFragment;
-    ExampleFragment exampleFragment;
+    CharactersBoardFragment charactersBoardFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class BoardActivity extends AppCompatActivity {
                 return;
             }
 
-            exampleFragment = new ExampleFragment();
+            charactersBoardFragment = new CharactersBoardFragment();
 
             Bundle args = new Bundle();
 
@@ -49,11 +49,11 @@ public class BoardActivity extends AppCompatActivity {
             )).collect(Collectors.toList());
 
             args.putParcelableArrayList("characterOnBoardList", new ArrayList<>(characterOnBoardList));
-            exampleFragment.setArguments(args);
+            charactersBoardFragment.setArguments(args);
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragment_container, exampleFragment)
+                    .add(R.id.fragment_container, charactersBoardFragment)
                     .commit();
         }
     }
@@ -74,8 +74,8 @@ public class BoardActivity extends AppCompatActivity {
                 .get(0);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (exampleFragmentTest instanceof ExampleFragment && exampleFragmentTest.isVisible()){
-            exampleFragment = (ExampleFragment) exampleFragmentTest;
+        if (exampleFragmentTest instanceof CharactersBoardFragment && exampleFragmentTest.isVisible()){
+            charactersBoardFragment = (CharactersBoardFragment) exampleFragmentTest;
             if (otherThingFragment == null) {
                 otherThingFragment = new OtherThingFragment();
 
@@ -95,14 +95,14 @@ public class BoardActivity extends AppCompatActivity {
                 transaction.add(R.id.fragment_container, otherThingFragment);
             }
 
-            transaction.hide(exampleFragment);
+            transaction.hide(charactersBoardFragment);
             transaction.show(otherThingFragment);
         } else {
             otherThingFragment = (OtherThingFragment) getSupportFragmentManager()
                     .getFragments()
                     .get(1);
             transaction.hide(otherThingFragment);
-            transaction.show(exampleFragment);
+            transaction.show(charactersBoardFragment);
         }
         transaction.commit();
     }

@@ -10,31 +10,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.myapplicationfromtutorial.model.Character;
 import com.example.myapplicationfromtutorial.model.CharacterOnBoard;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import sqlite.database.DatabaseHelper;
-
-public class ExampleFragment extends Fragment {
+public class CharactersBoardFragment extends Fragment {
 
     private ExampleViewModel mViewModel;
 
-    public static ExampleFragment newInstance() {
-        return new ExampleFragment();
+    public static CharactersBoardFragment newInstance() {
+        return new CharactersBoardFragment();
     }
 
-    public ExampleFragment() {
+    public CharactersBoardFragment() {
         setRetainInstance(true);
     }
 
