@@ -18,9 +18,6 @@
         </activity>
         <activity android:name=".activity.DisplayMessageActivity" />
         <activity android:name=".activity.BoardActivity" />
-
-        <service android:name=".service.BoardService" />
-        <service android:name=".service.PlayerService" />
     </application>
 
 </manifest>
