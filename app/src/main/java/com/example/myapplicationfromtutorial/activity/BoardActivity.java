@@ -8,7 +8,6 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import com.example.myapplicationfromtutorial.CharactersBoardFragment;
-import com.example.myapplicationfromtutorial.OtherThingFragment;
 import com.example.myapplicationfromtutorial.model.Character;
 import com.example.myapplicationfromtutorial.model.CharacterOnBoard;
 import com.example.myapplicationfromtutorial.R;
@@ -21,8 +20,7 @@ import sqlite.database.DatabaseHelper;
 public class BoardActivity extends AppCompatActivity {
     private DatabaseHelper db;
 
-    OtherThingFragment otherThingFragment;
-    CharactersBoardFragment charactersBoardFragment;
+    CharactersBoardFragment player1CharactersBoardFragment, player2CharactersBoardFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +33,7 @@ public class BoardActivity extends AppCompatActivity {
                 return;
             }
 
-            charactersBoardFragment = new CharactersBoardFragment();
+            player1CharactersBoardFragment = new CharactersBoardFragment();
 
             Bundle args = new Bundle();
 
@@ -49,11 +47,11 @@ public class BoardActivity extends AppCompatActivity {
             )).collect(Collectors.toList());
 
             args.putParcelableArrayList("characterOnBoardList", new ArrayList<>(characterOnBoardList));
-            charactersBoardFragment.setArguments(args);
+            player1CharactersBoardFragment.setArguments(args);
 
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragment_container, charactersBoardFragment)
+                    .add(R.id.fragment_container, player1CharactersBoardFragment)
                     .commit();
         }
     }
@@ -75,9 +73,9 @@ public class BoardActivity extends AppCompatActivity {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (exampleFragmentTest instanceof CharactersBoardFragment && exampleFragmentTest.isVisible()){
-            charactersBoardFragment = (CharactersBoardFragment) exampleFragmentTest;
-            if (otherThingFragment == null) {
-                otherThingFragment = new OtherThingFragment();
+            player1CharactersBoardFragment = (CharactersBoardFragment) exampleFragmentTest;
+            if (player2CharactersBoardFragment == null) {
+                player2CharactersBoardFragment = new CharactersBoardFragment();
 
                 Bundle args = new Bundle();
 
@@ -90,19 +88,19 @@ public class BoardActivity extends AppCompatActivity {
                 )).collect(Collectors.toList());
 
                 args.putParcelableArrayList("characterOnBoardList", new ArrayList<>(characterOnBoardList));
-                otherThingFragment.setArguments(args);
+                player2CharactersBoardFragment.setArguments(args);
 
-                transaction.add(R.id.fragment_container, otherThingFragment);
+                transaction.add(R.id.fragment_container, player2CharactersBoardFragment);
             }
 
-            transaction.hide(charactersBoardFragment);
-            transaction.show(otherThingFragment);
+            transaction.hide(player1CharactersBoardFragment);
+            transaction.show(player2CharactersBoardFragment);
         } else {
-            otherThingFragment = (OtherThingFragment) getSupportFragmentManager()
+            player2CharactersBoardFragment = (CharactersBoardFragment) getSupportFragmentManager()
                     .getFragments()
                     .get(1);
-            transaction.hide(otherThingFragment);
-            transaction.show(charactersBoardFragment);
+            transaction.hide(player2CharactersBoardFragment);
+            transaction.show(player1CharactersBoardFragment);
         }
         transaction.commit();
     }

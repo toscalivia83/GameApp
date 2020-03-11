@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 public class CharactersBoardFragment extends Fragment {
 
-    private ExampleViewModel mViewModel;
+    private CharactersBoardViewModel mViewModel;
 
     public static CharactersBoardFragment newInstance() {
         return new CharactersBoardFragment();
@@ -37,7 +37,7 @@ public class CharactersBoardFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.example_fragment, container, false);
+        View view = inflater.inflate(R.layout.characters_board_fragment, container, false);
         ConstraintLayout constraintLayout = view.findViewById(R.id.constraintLayout);
         if (constraintLayout.getViewById(1) == null) {
             ArrayList<CharacterOnBoard> characterOnBoardList = this.getArguments().getParcelableArrayList("characterOnBoardList");
@@ -56,7 +56,7 @@ public class CharactersBoardFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(ExampleViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(CharactersBoardViewModel.class);
         // TODO: Use the ViewModel
     }
 

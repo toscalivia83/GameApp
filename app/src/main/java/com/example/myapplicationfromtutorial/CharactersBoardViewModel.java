@@ -8,7 +8,7 @@ import com.example.myapplicationfromtutorial.model.CharacterOnBoard;
 
 import java.util.List;
 
-public class ExampleViewModel extends ViewModel {
+public class CharactersBoardViewModel extends ViewModel {
     // TODO: Implement the ViewModel
     private MutableLiveData<List<CharacterOnBoard>> characterListOnBoard;
 
